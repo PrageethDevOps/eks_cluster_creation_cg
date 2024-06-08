@@ -1,21 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
-  labels:
-    app: nginx
+  name: aws-cli
+  namespace: fintech
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: nginx
+      app: cliapp
   template:
     metadata:
       labels:
-        app: nginx
+        app: cliapp
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.14.2
-        ports:
-        - containerPort: 80
+      - name: cliapp
+        command:
+        - sh
+        - -c
+        - sleep 6000
+        image: amazon/aws-cli
+        imagePullPolicy: Always
